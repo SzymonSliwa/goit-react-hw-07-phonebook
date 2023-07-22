@@ -4,17 +4,35 @@ import React, { useState } from 'react';
 
 import { nanoid } from 'nanoid';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    dispatch(addContact({ name, number }));
+
+    const data = {
+      name: name,
+      id: nanoid(),
+      phone: number,
+    };
+
+    const isContactAlreadyAdded = contacts.find(
+      contact => contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
+    );
+    if (isContactAlreadyAdded) {
+      return window.alert(
+        `${isContactAlreadyAdded.name} is already in the contacts`
+      );
+    }
+
+    dispatch(addContact(data));
     resetForm();
   };
 

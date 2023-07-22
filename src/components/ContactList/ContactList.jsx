@@ -30,14 +30,3 @@ export const ContactList = () => {
     </div>
   );
 };
-
-//const getFilteredContacts = () => {
-//  if (!filter) {
-//    return list;
-//  }
-//  return list.filter(contact =>
-//    contact.name.toLowerCase().includes(filter.toLowerCase())
-//  );
-//};
-
-//const filteredContacts = getFilteredContacts();
